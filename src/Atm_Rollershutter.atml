@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<machines>
+  <machine name="Atm_Rollershutter">
+    <states>
+      <DOWN index="0" on_enter="ENT_DOWN">
+        <EVT_CMD_DOWN>MOVING_DOWN_EXTRA</EVT_CMD_DOWN>
+        <EVT_CMD_UP>MOVING_UP</EVT_CMD_UP>
+      </DOWN>
+      <MOVING_DOWN_EXTRA index="1" on_enter="ENT_MOVING_DOWN_EXTRA">
+        <EVT_EXTRA_TIMER_EXP>DOWN</EVT_EXTRA_TIMER_EXP>
+        <EVT_CMD_HALT>DOWN</EVT_CMD_HALT>
+        <EVT_CMD_UP>MOVING_UP</EVT_CMD_UP>
+      </MOVING_DOWN_EXTRA>
+      <MOVING_DOWN index="2" on_enter="ENT_MOVING_DOWN" on_loop="LP_MOVING_DOWN">
+        <EVT_CMD_HALT>STOPPED</EVT_CMD_HALT>
+        <EVT_CMD_UP>MOVING_UP</EVT_CMD_UP>
+        <EVT_POS_REACHED>STOPPED</EVT_POS_REACHED>
+      </MOVING_DOWN>
+      <STOPPED index="3" on_enter="ENT_STOPPED">
+        <EVT_CMD_DOWN>MOVING_DOWN</EVT_CMD_DOWN>
+        <EVT_CMD_UP>MOVING_UP</EVT_CMD_UP>
+      </STOPPED>
+      <MOVING_UP index="4" on_enter="ENT_MOVING_UP" on_loop="LP_MOVING_UP">
+        <EVT_CMD_DOWN>MOVING_DOWN</EVT_CMD_DOWN>
+        <EVT_CMD_HALT>STOPPED</EVT_CMD_HALT>
+        <EVT_POS_REACHED>STOPPED</EVT_POS_REACHED>
+      </MOVING_UP>
+      <MOVING_UP_EXTRA index="5" on_enter="ENT_MOVING_UP_EXTRA">
+        <EVT_EXTRA_TIMER_EXP>UP</EVT_EXTRA_TIMER_EXP>
+        <EVT_CMD_DOWN>MOVING_DOWN</EVT_CMD_DOWN>
+        <EVT_CMD_HALT>UP</EVT_CMD_HALT>
+      </MOVING_UP_EXTRA>
+      <UP index="6" on_enter="ENT_UP">
+        <EVT_CMD_DOWN>MOVING_DOWN</EVT_CMD_DOWN>
+        <EVT_CMD_UP>MOVING_UP_EXTRA</EVT_CMD_UP>
+      </UP>
+    </states>
+    <events>
+      <EVT_EXTRA_TIMER_EXP index="0" access="PRIVATE"/>
+      <EVT_CMD_DOWN index="1" access="PUBLIC"/>
+      <EVT_CMD_HALT index="2" access="PUBLIC"/>
+      <EVT_CMD_UP index="3" access="PUBLIC"/>
+      <EVT_POS_REACHED index="4" access="PRIVATE"/>
+    </events>
+    <connectors>
+      <CHANGE autostore="1" broadcast="1" dir="PUSH" slots="5"/>
+      <POS autostore="0" broadcast="0" dir="PUSH" slots="1"/>
+    </connectors>
+    <methods>
+    </methods>
+  </machine>
+</machines>

@@ -7,6 +7,7 @@
 
 
 #include <Homie.hpp>
+#include <Automaton.h>
 #include <LoggerNode.h>
 #include <HomieRollershutter.h>
 
@@ -44,5 +45,6 @@ void setup() {
 
 void loop() {
   Homie.loop();
+  automaton.run();
 }
 

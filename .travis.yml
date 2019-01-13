@@ -61,7 +61,7 @@ install:
     - pip install -U platformio
     - platformio lib -g install https://github.com/bodiroga/homie-esp8266.git#develop-v3
     - platformio lib -g install https://github.com/euphi/HomieLoggerNode.git#develop-v3
-    - platformio lib -g install Automaton
+    - platformio lib -g install https://github.com/euphi/Automaton.git#test_for_lambda
 
 script:
     - platformio ci --lib="." --board=esp01

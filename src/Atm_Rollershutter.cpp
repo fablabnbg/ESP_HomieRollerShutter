@@ -54,7 +54,6 @@ int Atm_Rollershutter::event(int id) {
 }
 
 Atm_Rollershutter& Atm_Rollershutter::cmd_pos(uint8_t destPos) {
-	Serial.printf("New destination position: %d\n", destPos);
 	int8_t delta = destPos - estimatedPosition;
 	if (delta > 0 || destPos == 100) {
 		Serial.printf("%d steps to go down\n", delta);
@@ -78,57 +77,60 @@ Atm_Rollershutter& Atm_Rollershutter::cmd_pos(uint8_t destPos) {
  */
 
 void Atm_Rollershutter::action( int id ) {
-  char * stateString = 0;
   switch ( id ) {
     case ENT_DOWN:
     	moveStp();
+    	push( connectors, ON_CHANGE, 0, state(), 0);
         return;
     case EXT_DOWN:
       return;
     case ENT_MOVING_DOWN_EXTRA:
     	moveDn();
-    	timerExtra.set(2000);
+    	push( connectors, ON_CHANGE, 0, state(), 0);
+    	timerExtra.set(extraTimeDn);
         return;
     case EXT_MOVING_DOWN_EXTRA:
       return;
     case ENT_MOVING_DOWN:
     	moveDn();
-    	timerStep.set(500);
+    	push( connectors, ON_CHANGE, 0, state(), 0);
+    	timerStep.set(timePerStepDn);
     	counter_stepsToGo.decrement();
-		Serial.print('v');
 		estimatedPosition++;
 		if (estimatedPosition % 2 == 0) push( connectors, ON_POS, 0, estimatedPosition, 0);
     	return;
     case LP_MOVING_DOWN:
 		return;
     case EXT_MOVING_DOWN:
+    	Serial.print("v");
       return;
     case ENT_STOPPED:
     	moveStp();
     	push( connectors, ON_POS, 0, estimatedPosition, 0);
-    	push( connectors, ON_CHANGE, 0, 0, 0);
-    	//mapSymbol(ELSE + STOPPED, stateString);
-    	//Serial.printf("New state %s", stateString);
+    	push( connectors, ON_CHANGE, 0, state(), 0);
         return;
     case ENT_MOVING_UP:
     	moveUp();
-    	timerStep.set(500);
+    	push( connectors, ON_CHANGE, 0, state(), 0);
+    	timerStep.set(timePerStepUp);
     	counter_stepsToGo.decrement();
-		Serial.print('^');
 		estimatedPosition--;
     	if (estimatedPosition % 2 == 0) push( connectors, ON_POS, 0, estimatedPosition, 0);
     	return;
     case LP_MOVING_UP:
         return;
     case EXT_MOVING_UP:
-      return;
+    	Serial.print("^");
+        return;
     case ENT_MOVING_UP_EXTRA:
     	moveUp();
-    	timerExtra.set(2400);
+    	push( connectors, ON_CHANGE, 0, state(), 0);
+    	timerExtra.set(extraTimeUp);
         return;
     case EXT_MOVING_UP_EXTRA:
       return;
     case ENT_UP:
+      push( connectors, ON_CHANGE, 0, state(), 0);
       moveStp();
       return;
   }

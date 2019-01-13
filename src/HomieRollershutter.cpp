@@ -27,7 +27,7 @@ HomieRollershutter::HomieRollershutter(const char* id, const char* name, uint8_t
 void HomieRollershutter::setup() {
 	shutter.begin();
 	shutter.trace(Serial);
-	shutter.onChange([this]( int idx, int v, int up ) {setProperty(propMoving).send("not yet implemented");},0);
+	shutter.onChange([this]( int idx, int v, int up ) {setProperty(propMoving).send(String(shutter.mapstate(v)));},0);
 	shutter.onPos([this]( int idx, int v, int up ) {setProperty(propState).send(String(v));},0);
 }
 

@@ -7,7 +7,13 @@ class Atm_Rollershutter: public Machine {
  public:
   enum { DOWN, MOVING_DOWN_EXTRA, MOVING_DOWN, STOPPED, MOVING_UP, MOVING_UP_EXTRA, UP }; // STATES
   enum { EVT_STEP, EVT_END_REACHED, EVT_EXTRA_TIMER_EXP, EVT_CMD_DOWN, EVT_CMD_HALT, EVT_CMD_UP, EVT_POS_REACHED, ELSE }; // EVENTS
-  Atm_Rollershutter( uint8_t _pinOpen, uint8_t _pinClose, bool _on ) : Machine(), estimatedPosition(100), pinOpen(_pinOpen), pinClose(_pinClose), on(_on) {};
+  Atm_Rollershutter( uint8_t _pinOpen, uint8_t _pinClose, bool _on ) :
+	  Machine(),
+	  estimatedPosition(100),
+	  pinOpen(_pinOpen), pinClose(_pinClose), on(_on),
+	  timePerStepUp(400), timePerStepDn(400), extraTimeUp(1500), extraTimeDn(1500)
+      {};
+
   Atm_Rollershutter& begin( void );
   Atm_Rollershutter& trace( Stream & stream );
   Atm_Rollershutter& trigger( int event );
@@ -24,6 +30,8 @@ class Atm_Rollershutter: public Machine {
   Atm_Rollershutter& cmd_up( void );
   Atm_Rollershutter& cmd_pos( uint8_t destPos );
 
+  const char* mapstate(int state) { return mapSymbol(state + state_width - ATM_ON_EXIT, symbols);}
+
  private:
   enum { ENT_DOWN, EXT_DOWN, ENT_MOVING_DOWN_EXTRA, EXT_MOVING_DOWN_EXTRA, ENT_MOVING_DOWN, LP_MOVING_DOWN, EXT_MOVING_DOWN, ENT_STOPPED, ENT_MOVING_UP, LP_MOVING_UP, EXT_MOVING_UP, ENT_MOVING_UP_EXTRA, EXT_MOVING_UP_EXTRA, ENT_UP }; // ACTIONS
   enum { ON_CHANGE, ON_POS, CONN_MAX }; // CONNECTORS
@@ -39,7 +47,7 @@ class Atm_Rollershutter: public Machine {
   uint8_t pinOpen, pinClose;
   bool on;
 
-
+  uint32_t timePerStepUp, timePerStepDn, extraTimeUp, extraTimeDn;
 
   void moveUp() {digitalWrite(pinClose,!on);	digitalWrite(pinOpen,on);}
   void moveDn() {digitalWrite(pinClose,on);	digitalWrite(pinOpen,!on);}

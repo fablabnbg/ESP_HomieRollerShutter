@@ -160,20 +160,22 @@ int Atm_Rollershutter::state( void ) {
 /* Public event methods
  *
  */
-
 Atm_Rollershutter& Atm_Rollershutter::cmd_down() {
-  trigger( EVT_CMD_DOWN );
-  return *this;
+	counter_stepsToGo.set(ATM_COUNTER_OFF);
+	trigger(EVT_CMD_DOWN);
+	return *this;
 }
 
 Atm_Rollershutter& Atm_Rollershutter::cmd_halt() {
-  trigger( EVT_CMD_HALT );
-  return *this;
+	counter_stepsToGo.set(ATM_COUNTER_OFF);
+	trigger(EVT_CMD_HALT);
+	return *this;
 }
 
 Atm_Rollershutter& Atm_Rollershutter::cmd_up() {
-  trigger( EVT_CMD_UP );
-  return *this;
+	counter_stepsToGo.set(ATM_COUNTER_OFF);
+	trigger(EVT_CMD_UP);
+	return *this;
 }
 
 /*

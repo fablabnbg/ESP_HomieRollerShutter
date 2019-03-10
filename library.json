@@ -3,6 +3,17 @@
         "version": "0.9.0",
         "keywords": "Homie, actor, rollershutter, IoT",
         "description": "Node to control a Rollershutter for Homie-ESP8266 library.",
+	"authors":
+	[
+		{
+			"name": "Ian Hubbertz",
+			"url": "https://euphi.github.io",
+			"maintainer": true
+		},
+		{	"name": "Fablab Region Nürnberg e. V.",
+			"url": "https://fablab-nuernberg.de"
+		}
+	],
         "repository": {
                 "type": "git",
                 "url": "https://github.com/fablabnbg/ESP_HomieRollerShutter.git"

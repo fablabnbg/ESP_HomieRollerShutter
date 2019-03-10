@@ -1,0 +1,26 @@
+{
+        "name": "HomieRollershutter",
+        "version": "0.9.0",
+        "keywords": "Homie, actor, rollershutter, IoT",
+        "description": "Node to control a Rollershutter for Homie-ESP8266 library.",
+        "repository": {
+                "type": "git",
+                "url": "https://github.com/fablabnbg/ESP_HomieRollerShutter.git"
+        },
+        "frameworks": "arduino",
+        "platforms": "espressif8266",
+        "dependencies": 
+        [
+		{	"name": "Automaton",
+			"version": "https://github.com/euphi/Automaton.git#test_for_lambda"
+		},
+		{
+                        "name": "Homie",
+			"version": "https://github.com/homieiot/homie-esp8266.git#develop-v3"
+                },
+                {
+                        "name": "HomieLoggerNode",
+			"version": "https://github.com/euphi/HomieLoggerNode.git#develop-v3"
+                }
+        ]
+}

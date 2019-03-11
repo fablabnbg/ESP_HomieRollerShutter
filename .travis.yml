@@ -64,4 +64,4 @@ install:
     - platformio lib -g install https://github.com/euphi/Automaton.git#test_for_lambda
 
 script:
-    - platformio ci --lib="." --board=esp01
+    - platformio ci --lib="." --board=d1_mini

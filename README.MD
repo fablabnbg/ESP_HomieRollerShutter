@@ -1,4 +1,4 @@
-# ESP_HomieRollerShutter
+# ESP_HomieRollerShutter [![Build Status](https://travis-ci.org/fablabnbg/ESP_HomieRollerShutter.svg?branch=master)](https://travis-ci.org/fablabnbg/ESP_HomieRollerShutter)
 
 A "Homie Node" for homie-esp8266 implentation to control a rollershutter.
 

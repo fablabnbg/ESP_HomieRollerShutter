@@ -11,7 +11,7 @@ class Atm_Rollershutter: public Machine {
 	  Machine(),
 	  estimatedPosition(100),
 	  pinOpen(_pinOpen), pinClose(_pinClose), on(_on),
-	  timePerStepUp(400), timePerStepDn(400), extraTimeUp(1500), extraTimeDn(1500)
+	  timePerStepUp(800), timePerStepDn(800), extraTimeUp(1500), extraTimeDn(1500)
       {};
 
   Atm_Rollershutter& begin( void );

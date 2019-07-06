@@ -56,14 +56,14 @@ int Atm_Rollershutter::event(int id) {
 Atm_Rollershutter& Atm_Rollershutter::cmd_pos(uint8_t destPos) {
 	int8_t delta = destPos - estimatedPosition;
 	if (delta > 0 || destPos == 100) {
+		cmd_down();
 		Serial.printf("%d steps to go down\n", delta);
 		counter_stepsToGo.set(delta);
-		cmd_down();
 	}
 	if (delta < 0 || destPos == 0) {
+		cmd_up();
 		Serial.printf("%d steps to go up\n", -delta);
 		counter_stepsToGo.set(-delta);
-		cmd_up();
 	}
 	return *this;
 }
@@ -96,6 +96,7 @@ void Atm_Rollershutter::action( int id ) {
     	push( connectors, ON_CHANGE, 0, state(), 0);
     	timerStep.set(timePerStepDn);
     	counter_stepsToGo.decrement();
+		Serial.printf("Still %d steps to go down\n", counter_stepsToGo.value);
 		estimatedPosition++;
 		if (estimatedPosition % 2 == 0) push( connectors, ON_POS, 0, estimatedPosition, 0);
     	return;
@@ -114,6 +115,7 @@ void Atm_Rollershutter::action( int id ) {
     	push( connectors, ON_CHANGE, 0, state(), 0);
     	timerStep.set(timePerStepUp);
     	counter_stepsToGo.decrement();
+		Serial.printf("Still %d steps to go up\n", counter_stepsToGo.value);
 		estimatedPosition--;
     	if (estimatedPosition % 2 == 0) push( connectors, ON_POS, 0, estimatedPosition, 0);
     	return;
